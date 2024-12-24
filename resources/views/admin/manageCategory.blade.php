@@ -21,6 +21,12 @@
                         <th scope="col" class="px-6 py-3">
                             Category Name
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            Description
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Image
+                        </th>
                         <th scope="col" class="px-6 py-3 flex justify-end">
                             <span class="mr-5">Action</span>
                         </th>
@@ -36,19 +42,26 @@
                             <td class="px-6 py-4">
                                 {{ $item->cat_title }}
                             </td>
+                            <td class="px-6 py-4">
+                                {{ $item->description }}
+                            </td>
+                            <td class="px-6 py-4">
+                                <img src="{{ asset('images/' . $item->image) }}" alt="{{ $item->cat_title }}" class="w-10 h-10 rounded">
+                            </td>
                             <td class="px-6 py-4 text-right flex justify-end">
-                                <button data-modal-target="authentication-modal{{ $item->id }}" data-modal-toggle="authentication-modal{{ $item->id }}"
+                                <button data-modal-target="authentication-modal{{ $item->id }}"
+                                    data-modal-toggle="authentication-modal{{ $item->id }}"
                                     class="font-medium text-blue-600 hover:underline">Edit
                                 </button>
                                 <div class="action">
-                                    <form action="{{ route("admin.category.delete", $item->id) }}" method="post">
+                                    <form action="{{ route('admin.category.delete', $item->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="text" name="cat_id" value="{{ $item->id }}" hidden>
-                                        <input type="submit" value="Delete" class="text-red-600 font-medium hover:underline ml-5"/>
+                                        <input type="submit" value="Delete"
+                                            class="text-red-600 font-medium hover:underline ml-5" />
                                     </form>
                                 </div>
-                                {{-- <a href="#" class="font-medium text-blue-600 hover:underline ml-5">Delete</a> --}}
                             </td>
                         </tr>
                         {{-- edit model --}}
@@ -58,10 +71,9 @@
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                     <!-- Modal header -->
-                                    <div
-                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
                                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                            Edit Category 
+                                            Edit Category
                                         </h3>
                                         <button type="button"
                                             class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -76,13 +88,15 @@
                                     </div>
                                     {{-- form box --}}
                                     <div class="p-4 md:p-5">
-                                        <form class="space-y-4" action="{{ route("admin.category.update", $item->id) }}" method="post">
+                                        <form class="space-y-4" action="{{ route('admin.category.update', $item->id) }}"
+                                            method="post">
                                             @csrf
                                             <div>
                                                 <label for="title"
                                                     class="block mb-4 text-md font-medium text-gray-700 dark:text-white">Category
                                                     Title</label>
-                                                <input type="input" name="cat_title" value="{{ $item->cat_title }}" id="title"
+                                                <input type="input" name="cat_title" value="{{ $item->cat_title }}"
+                                                    id="title"
                                                     class="bg-gray-50 border border-gray-300 text-gray-900 mb-4 text-sm rounded-lg  block w-full p-2.5 "
                                                     placeholder="Fast Food" required />
                                                 @error('cat_title')
@@ -91,7 +105,7 @@
                                             </div>
                                             <button type="submit"
                                                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update
-                                                 category
+                                                category
                                             </button>
                                         </form>
                                     </div>
@@ -127,25 +141,58 @@
                     </div>
                     <!-- Modal body -->
                     <div class="p-4 md:p-5">
-                        <form class="space-y-4" action={{ route('admin.category') }} method="post">
+                        <form class="space-y-4" action="{{ route('admin.category') }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
+                            <!-- Category Title -->
                             <div>
-                                <label for="title"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category
-                                    Title</label>
+                                <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Category Title
+                                </label>
                                 <input type="input" name="cat_title" value="{{ old('cat_title') }}" id="title"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full p-2.5 "
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
                                     placeholder="Fast Food" required />
                                 @error('cat_title')
                                     <p class="text-red-500 text-sm">{{ $message }}</p>
                                 @enderror
                             </div>
+
+                            <!-- Category Description -->
+                            <div>
+                                <label for="description"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Category Description
+                                </label>
+                                <textarea name="description" id="description" rows="4"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+                                    placeholder="Enter a description for the category" required>{{ old('cat_description') }}</textarea>
+                                @error('description')
+                                    <p class="text-red-500 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Category Image -->
+                            <div>
+                                <label for="image"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Category Image
+                                </label>
+                                <input type="file" name="image" id="image"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full "
+                                    accept="image/*" required />
+                                @error('image')
+                                    <p class="text-red-500 text-sm">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Submit Button -->
                             <button type="submit"
-                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create
-                                new category
+                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                Create new category
                             </button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -11,9 +11,9 @@
 </head>
 
 <body class="bg-gray-100 text-gray-800">
-    <div class="flex h-screen">
+    <div class="flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-900 text-white flex flex-col">
+        <aside class="w-64 bg-gray-900 text-white flex flex-col  h-screen fixed">
             <!-- Logo Section -->
             <div class="px-6 py-4">
                 <h1 class="text-lg font-bold text-center">Admin Panel</h1>
@@ -69,7 +69,7 @@
         </aside>
 
         <!-- Main Content -->
-        <main class="flex-1 p-4">
+        <main class="flex-1 p-4 ml-64">
             @section('content')
 
             @show

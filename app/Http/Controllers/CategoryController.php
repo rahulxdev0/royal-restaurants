@@ -11,7 +11,16 @@ class CategoryController extends Controller
         if($req->isMethod("post")){
             $data = $req->validate([
                 'cat_title' => 'required|max:255',
+                'description' => 'required|string',
+                'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
+
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $imageName = time().'.'.$image->extension();
+                $image->move(public_path('images'), $imageName);
+                $data['image'] = $imageName;
+            }
     
             Category::create($data);
             return redirect()->route("admin.category")->with("msg", "Category added successfully");
