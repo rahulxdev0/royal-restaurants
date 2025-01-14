@@ -7,9 +7,11 @@
         <div class="pt-5 px-5">
             @if($banner)
             <img src="{{ asset('storage/' . $banner->banner_image) }}" alt="{{ $banner->banner_title }}" class=" h-60 w-full">
-        @endif
-    </div>
+            
+            @else
+            <img src="hero.png" alt="Royal Restaurants Hero" class=" h-60 w-full">
 
+            @endif
         </div>
     </section>
 
