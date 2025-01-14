@@ -9,7 +9,12 @@ use App\Http\Controllers\ProductController;
 Route::get('/', [HomeController::class, "index"])->name("home");
 
 Route::prefix("admin")->group(function(){
+    //admin
     Route::get('/', [AdminController::class, "dashboard"])->name("admin.dashboard");
+    Route::get('/settings/banner', [AdminController::class, 'createOrUpdate'])->name('settings.createOrUpdate');
+Route::post('/settings/banner', [AdminController::class, 'saveOrUpdate'])->name('settings.saveOrUpdate');
+
+
 
     Route::controller(CategoryController::class)->group(function(){
         Route::match(["get", "post"], "/category", "index")->name("admin.category");

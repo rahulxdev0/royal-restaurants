@@ -5,7 +5,11 @@
     <!-- Hero Section -->
     <section class="w-full  mx-auto">
         <div class="pt-5 px-5">
-            <img src="hero.png" alt="Royal Restaurants Hero" class=" h-60 w-full">
+            @if($banner)
+            <img src="{{ asset('storage/' . $banner->banner_image) }}" alt="{{ $banner->banner_title }}" class=" h-60 w-full">
+        @endif
+    </div>
+
         </div>
     </section>
 

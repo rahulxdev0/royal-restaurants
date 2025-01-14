@@ -53,7 +53,7 @@
                     <span class="material-icons">analytics</span>
                     <span>Reports</span>
                 </a>
-                <a href="#" class="flex items-center space-x-2 px-4 py-2 rounded hover:bg-gray-800">
+                <a href="{{route('settings.createOrUpdate')}}" class="flex items-center space-x-2 px-4 py-2 rounded hover:bg-gray-800">
                     <span class="material-icons">settings</span>
                     <span>Settings</span>
                 </a>
