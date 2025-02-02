@@ -37,12 +37,12 @@ class AuthController extends Controller
 
     public function authenticate(Request $request){
        $request->validate([
-        'emial' => 'required|email',
+        'email' => 'required|email',
         'password' => 'required|min:6'
        ]);
 
-       if(Auth::attempt($request, $request->remember)){
-            $request->session()->regenerate();
+       if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $request->session()->regenerate();
 
            return redirect()->route('home')->with('success', 'Welcome back,', Auth::user()->name . '!');
        }
@@ -51,4 +51,6 @@ class AuthController extends Controller
             'email' => 'The provided credentials do not match our records.'
         ]);
     }
+
+    
 }
