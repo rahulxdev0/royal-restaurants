@@ -16,7 +16,7 @@
         <div class="flex items-center space-x-4">
             <a href="">Search</a>
             <a href="">Cart</a>
-            <a href="#book" class="border border-orange-300 text-center text-orange-600 font-semibold px-7 py-2 rounded-full hover:bg-yellow-500">sign in</a>
+            <a href="{{ route('signup') }}" class="border border-orange-300 hover:border-orange-400 text-center text-orange-600 font-semibold px-7 py-2 rounded-full">sign in</a>
             <button class="md:hidden text-yellow-400" id="menuToggle">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                     stroke="currentColor" class="w-6 h-6">

@@ -5,8 +5,14 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', [HomeController::class, "index"])->name("home");
+Route::get('signup', [AuthController::class, 'signup'])->name('signup');
+Route::post('signup', [AuthController::class, 'register'])->name('register');
+
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'authenticate'])->name('authenticate');
 
 Route::prefix("admin")->group(function(){
     //admin

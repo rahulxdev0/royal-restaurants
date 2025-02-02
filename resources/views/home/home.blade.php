@@ -15,23 +15,31 @@
         </div>
     </section>
 
-    <!-- Menu Section -->
     <section id="menu" class="mx-auto px-10 max-w-6xl mt-5">
         <div class="w-full border-b-2 border-gray-200 pb-5">
             <h1 class="text-2xl font-bold leading-loose text-gray-600 mb-2">Explore our menu</h1>
-            <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
-                @foreach ($categories as $category)
-                    <div class="bg-white rounded-lg">
-                        <img src="{{ asset('images/' . $category->image) }}" alt="{{ $category->title }}"
-                            class="rounded-t-lg h-24 w-full object-contain">
-                        <div class="p-2">
-                            <h3 class="text-lg font-semibold text-gray-600 text-center">{{ $category->cat_title }}</h3>
+            
+            <!-- Updated Scrollable Container -->
+            <div class="relative">
+                <div class="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6 max-h-72 overflow-y-auto pb-4 scroll-smooth"
+                     style="scrollbar-width: thin; scrollbar-color: #cbd5e0 #f3f4f6;">
+                    @foreach ($categories as $category)
+                        <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+                            <img src="{{ asset('images/' . $category->image) }}" alt="{{ $category->title }}"
+                                 class="rounded-t-lg h-24 w-full object-contain bg-gray-50">
+                            <div class="p-2">
+                                <h3 class="text-lg font-semibold text-gray-600 text-center truncate">{{ $category->cat_title }}</h3>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
+    
+                <!-- Fade-out Effect at Bottom -->
+                <div class="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-white to-transparent pointer-events-none"></div>
             </div>
         </div>
     </section>
+    
 
     <div class="w-full max-w-6xl mx-auto px-10 py-8">
         <h2 class="text-2xl font-bold leading-loose text-gray-600 mb-2">Top Dishes For you</h2>
@@ -80,3 +88,25 @@
         </div>
     </div>
 @endsection
+
+<style>
+    /* Custom Scrollbar Styling */
+    .scroll-smooth::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    .scroll-smooth::-webkit-scrollbar-track {
+        background: #f3f4f6;
+        border-radius: 4px;
+    }
+
+    .scroll-smooth::-webkit-scrollbar-thumb {
+        background: #cbd5e0;
+        border-radius: 4px;
+    }
+
+    .scroll-smooth::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+</style>
