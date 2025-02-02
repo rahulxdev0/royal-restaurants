@@ -38,14 +38,17 @@ class AuthController extends Controller
     public function authenticate(Request $request){
        $request->validate([
         'emial' => 'required|email',
-        'password' => 'required'
+        'password' => 'required|min:6'
        ]);
 
-       dd($request->all());
-       Auth::attempt(['email' => $email, 'password' => $password]);
+       if(Auth::attempt($request, $request->remember)){
+            $request->session()->regenerate();
 
-       if(Auth::check()){
-           return redirect()->route('home')->with('success', 'Login successful!');
+           return redirect()->route('home')->with('success', 'Welcome back,', Auth::user()->name . '!');
        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.'
+        ]);
     }
 }
