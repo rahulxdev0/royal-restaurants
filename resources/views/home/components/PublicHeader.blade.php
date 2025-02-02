@@ -16,6 +16,9 @@
         <div class="flex items-center space-x-4">
             <a href="">Search</a>
             <a href="">Cart</a>
+            @if (Auth::check())
+            <a href="{{ route('logout')}}">Logout</a> 
+            @else
             <a href="{{ route('signup') }}" class="border border-orange-300 hover:border-orange-400 text-center text-orange-600 font-semibold px-7 py-2 rounded-full">sign in</a>
             <button class="md:hidden text-yellow-400" id="menuToggle">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -23,6 +26,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
                 </svg>
             </button>
+            @endif
         </div>
     </div>
     <!-- Mobile Menu -->
